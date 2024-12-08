@@ -1,13 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'App.css'
+import { BrowserRouter } from 'react-router-dom'
+import Store from 'store/store'
+import { createContext } from 'react'
+import { AlertProvider } from 'components'
+import { AppContainer } from 'modules/app'
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+interface State {
+    store: Store,
 }
 
-export default App;
+export const store = new Store();
+
+export const Context = createContext<State>({
+    store,
+})
+
+function App() {
+    return (
+        <BrowserRouter>
+            <AlertProvider>
+                <Context.Provider
+                    value={{
+                        store,
+                    }}
+                >
+                    <AppContainer />
+                </Context.Provider>
+            </AlertProvider>
+        </BrowserRouter>
+    )
+}
+
+export default App
