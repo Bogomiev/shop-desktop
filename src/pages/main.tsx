@@ -1,14 +1,20 @@
-import React, {FC, useState} from 'react';
+import { store } from 'App'
+import { ShiftsContainer } from 'modules/shifts'
+import {FC} from 'react';
+
 
 
 const MainForm: FC = () => {
-    const [login, setLogin] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-
+    const position = store.geo
+    
     return (
+        <>
         <div>
-            Главная форма
+            'lat': {position.latitude}
+            'lon': {position.longitude}
         </div>
+        <ShiftsContainer></ShiftsContainer>
+        </>
     );
 };
 

@@ -1,11 +1,6 @@
 export interface IUser {
-    id?: number
-    userName?: string
-    firstName?: string
-    lastName?: string
-    email?: string
-    phone?: string
-    isActive?: boolean
+    id: string
+    name: string
 }
 export interface ILogin {
     login: string,

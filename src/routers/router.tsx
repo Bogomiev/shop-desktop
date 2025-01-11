@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Spin from '../components/ui/spin'
-import NotFound from '../pages/not-found'
+import Spin from 'components/ui/spin'
+import NotFound from 'pages/not-found'
 import { useQuery } from '@tanstack/react-query'
 import AuthService from 'services/auth-service'
 import { authorizedZone, unauthorizedZone } from './services'
@@ -10,8 +10,8 @@ export const Router: React.FC = () => {
     const authRoutes = authorizedZone()
     const unauthRoutes = unauthorizedZone()
     const { data, isError } = useQuery({
-        queryKey: ['me'],
-        queryFn: AuthService.me,
+        queryKey: ['checkAuth'],
+        queryFn: AuthService.checkAuth,
         retry: false,
     })
 

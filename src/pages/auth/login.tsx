@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { useAlert } from 'components'
 import { Button } from 'components/ui/button'
 import Spin from 'components/ui/spin'
@@ -21,14 +22,14 @@ const LoginForm: FC<string> = (login: string) => {
             return AuthService.login(data.login, data.code)
         },
         onSuccess: (data, variables) => {
-            queryClient.invalidateQueries({ queryKey: ['me'] })
+            queryClient.invalidateQueries({ queryKey: ['checkAuth'] })
             navigate('/', { replace: true })
         },
-        onError: (error: AuthResponseFail, variables, context) => {
+        onError: (error: AxiosError<AuthResponseFail>, variables, context) => {
             const mess =
-                error.response && error.response.data
-                    ? error.response.data.message
-                    : 'Network unavailable!'
+                error.response?.data?.messages
+                    ? error.response.data.messages[0]
+                    : 'Сеть недоступна!'
             message({
                 type: 'error',
                 message: mess,
@@ -62,10 +63,9 @@ const LoginForm: FC<string> = (login: string) => {
                         <ReactCodeInput
                             name="reactCode"
                             inputMode="numeric"
-                            fields={4}
+                            fields={5}
                             onChange={(e) => {
-                                setCode(e); 
-                                console.log(e)
+                                setCode(e);
                             }}
                         />
                                

@@ -1,23 +1,17 @@
-import {IUser} from "../user";
-
-export interface AuthResponse {
-    accessToken: string;
-    refreshToken: string;
-    user: IUser;
-}
+import { IUser } from '../user'
+import { BaseResponse } from './base'
 
 export interface AuthResponseData {
-    message: String
+    accessToken: string
+    refreshToken: string
 }
 
-export interface AuthResponse {
+export interface AuthResponse extends BaseResponse {
     data: AuthResponseData
 }
 
-export interface AuthResponseFail {
-    response: AuthResponse
-}
-
-export interface MeResponse extends IUser {
+export interface AuthResponseFail extends BaseResponse {
 
 }
+
+export interface MeResponse extends IUser {}

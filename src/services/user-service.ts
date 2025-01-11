@@ -1,7 +1,6 @@
 import $api from "api";
 import {AxiosResponse} from 'axios';
-import {AuthResponse} from "../models/response/auth-response";
-import {IUser} from "../models/user";
+import {IUser} from "models/user";
 
 export default class UserService {
     static fetchUsers(): Promise<AxiosResponse<IUser[]>> {
