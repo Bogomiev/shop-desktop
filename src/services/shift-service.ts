@@ -12,6 +12,6 @@ export default class ShiftService {
         shopId: '',
         shopName: '<>',
         address: ' - ',
-        cashiers: [{shiftStartTime: '', shiftEndTime: '', user: {id: '', name: '<Не определен>'}}]
+        cashiers: [{user: {id: '', name: '<Не определен>'}, current: false,shiftStartTime: '', shiftEndTime: ''}]
     }
 }

@@ -2,6 +2,7 @@ import { IUser } from './user'
 
 interface ShiftUser {
     user: IUser
+    current: boolean
     shiftStartTime: string
     shiftEndTime: string
 }
@@ -12,4 +13,9 @@ export interface ShiftsData {
     address: string
     cashiers: ShiftUser[]
 }
+
+export interface ShiftsProps extends ShiftsData{
+    isLoading: boolean
+}
+
 

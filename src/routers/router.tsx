@@ -16,7 +16,7 @@ export const Router: React.FC = () => {
     })
 
     return (
-        <Suspense fallback={<Spin />}>
+        <Suspense fallback={<Spin/>}>
             <Routes>
                 {!isError && data ? (
                     <>

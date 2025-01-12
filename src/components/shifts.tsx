@@ -1,24 +1,43 @@
-import { ShiftsData } from 'models/shift'
+import { ShiftsProps } from 'models/shift'
 import React from 'react'
+import logo from 'assets/images/logo-full.svg'
+import { SpinSceleton } from './ui/spin-skeleton'
 
-export const Shifts: React.FC<ShiftsData> = (props) => {
+export const Shifts: React.FC<ShiftsProps> = (props) => {
     return (
-        <>
-            <div>{props.shopName}</div>
-            <div>{props.address}</div>
+        <SpinSceleton
+            spinning={Number(props.isLoading)}
+            className="border border-black shadow-sm rounded-xl p-3"
+            children=<div className="space-y-1">
+                <div className="flex justify-between">
+                    <img className="w-1/3" src={logo} alt="Ikorniy"></img>
+                    <div className="font-extrabold text-3xl">
+                        {props.shopName}
+                    </div>
+                </div>
 
-            {props.cashiers && props.cashiers[0] ? (
-                <div>
-                    {props.cashiers[0].shiftStartTime}-
-                    {props.cashiers[0].shiftEndTime}
-                    {props.cashiers[0].user.name}
-                </div>
-            ) : (
-                <div>
-                    00:00-00:00
-                    {'<>'}
-                </div>
-            )}
-        </>
+                <div>{props.address}</div>
+                <div className="font-semibold">Текущая смена</div>
+
+                {props.cashiers.map((cashier) => (
+                    <>
+                        <div className="font-extrabold text-xl">
+                            {cashier.user.name}
+                            <input
+                                className="relative float-right me-1 mt-0.5 h-5 w-5 accent-[#1b1d2d]"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id={cashier.user.id}
+                                checked={cashier.current}
+                            />
+                        </div>
+                        <div className="flex">
+                            с {props.cashiers[0].shiftStartTime} по{' '}
+                            {props.cashiers[0].shiftEndTime}
+                        </div>
+                    </>
+                ))}
+            </div>
+        ></SpinSceleton>
     )
 }
