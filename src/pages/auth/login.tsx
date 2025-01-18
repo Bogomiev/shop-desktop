@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { store } from 'App'
 import { AxiosError } from 'axios'
 import { useAlert } from 'components'
 import { Button } from 'components/ui/button'
-import Spin from 'components/ui/spin'
 import { AuthResponseFail } from 'models/response/auth-response'
 import { ILogin } from 'models/user'
 import { FC, useState } from 'react'
@@ -10,11 +10,11 @@ import ReactCodeInput from 'react-code-input'
 import { useNavigate } from 'react-router-dom'
 import AuthService from 'services/auth-service'
 
-const LoginForm: FC<string> = (login: string) => {
+
+const LoginForm: FC = () => {
     const { message } = useAlert()
     const [code, setCode] = useState<string>('')
     const navigate = useNavigate()
-    login = 'Иванова Марина'
     const queryClient = useQueryClient()
 
     const loginHandler = useMutation({
@@ -22,7 +22,8 @@ const LoginForm: FC<string> = (login: string) => {
             return AuthService.login(data.login, data.code)
         },
         onSuccess: (data, variables) => {
-            queryClient.invalidateQueries({ queryKey: ['checkAuth'] })
+            AuthService.setToken(data.data.data.accessToken, data.data.data.refreshToken)
+            queryClient.invalidateQueries({ queryKey: ['me'] })
             navigate('/', { replace: true })
         },
         onError: (error: AxiosError<AuthResponseFail>, variables, context) => {
@@ -42,6 +43,7 @@ const LoginForm: FC<string> = (login: string) => {
         <form
             className="max-w-sm mx-auto p-3"
             onSubmit={(e) => {
+                const login = store.userName
                 e.preventDefault()
                 loginHandler.mutate({ login, code })
             }}
@@ -51,7 +53,7 @@ const LoginForm: FC<string> = (login: string) => {
             <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <label className="block mb-2 text-xl font-extrabold">
-                        {login}
+                        {store.userName}
                     </label>
                     
                     <label className="mb-2 text-lg font-extrabold flex justify-center">
@@ -73,14 +75,12 @@ const LoginForm: FC<string> = (login: string) => {
                     <Button
                         type="submit"
                         className="font-medium text-sm"
-                        // onClick={() => loginHandler.mutate({login, password})}
                     >
                         Авторизоваться
                     </Button>
                     <Button
                         type="submit"
                         className="font-medium text-sm"
-                        // onClick={() => loginHandler.mutate({login, password})}
                     >
                         В личный кабинет
                     </Button>

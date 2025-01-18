@@ -14,4 +14,11 @@ export interface AuthResponseFail extends BaseResponse {
 
 }
 
-export interface MeResponse extends IUser {}
+interface MeResponseData {
+    user: IUser
+    isCashier: boolean
+}
+
+export interface MeResponse extends BaseResponse {
+    data: MeResponseData
+}

@@ -10,8 +10,8 @@ export const Router: React.FC = () => {
     const authRoutes = authorizedZone()
     const unauthRoutes = unauthorizedZone()
     const { data, isError } = useQuery({
-        queryKey: ['checkAuth'],
-        queryFn: AuthService.checkAuth,
+        queryKey: ['me'],
+        queryFn: AuthService.me,
         retry: false,
     })
 

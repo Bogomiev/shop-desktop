@@ -15,10 +15,9 @@ export const Shifts: React.FC<ShiftsProps> = (props) => {
                         {props.shopName}
                     </div>
                 </div>
-
                 <div>{props.address}</div>
                 <div className="font-semibold">Текущая смена</div>
-
+                
                 {props.cashiers.map((cashier) => (
                     <>
                         <div className="font-extrabold text-xl">
@@ -26,14 +25,16 @@ export const Shifts: React.FC<ShiftsProps> = (props) => {
                             <input
                                 className="relative float-right me-1 mt-0.5 h-5 w-5 accent-[#1b1d2d]"
                                 type="radio"
-                                name="flexRadioDefault"
+                                name="cashierRadio"
                                 id={cashier.user.id}
                                 checked={cashier.current}
+                                onChange={() =>
+                                    props.cashierChangeHandler(cashier.user.name)
+                                }
                             />
                         </div>
                         <div className="flex">
-                            с {props.cashiers[0].shiftStartTime} по{' '}
-                            {props.cashiers[0].shiftEndTime}
+                            с {cashier.shiftStartTime} по {cashier.shiftEndTime}
                         </div>
                     </>
                 ))}

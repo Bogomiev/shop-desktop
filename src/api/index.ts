@@ -20,7 +20,7 @@ const refreshApi = axios.create({
 })
 
 $api.interceptors.request.use((config) => {
-    config.headers.TokenAuthorization = `Bearer ${localStorage.getItem('accessToken')}`
+    config.headers.TokenAuthorization = `${localStorage.getItem('accessToken')}`
     return config
 })
 
