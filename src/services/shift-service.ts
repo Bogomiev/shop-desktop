@@ -1,6 +1,6 @@
 import $api from 'api'
 import { AxiosResponse } from 'axios'
-import { ShiftResponse } from 'models/response/shift-response'
+import { CloseShiftResponse, ShiftResponse } from 'models/response/shift-response'
 import { ShiftsData } from 'models/shift'
 
 export default class ShiftService {
@@ -13,5 +13,9 @@ export default class ShiftService {
         shopName: '<>',
         address: ' - ',
         cashiers: [{user: {id: '', name: '<Не определен>'}, current: false,shiftStartTime: '', shiftEndTime: ''}]
+    }
+
+    static async closeShift(): Promise<AxiosResponse<CloseShiftResponse>> {
+        return await $api.post<CloseShiftResponse>('closeshift')
     }
 }

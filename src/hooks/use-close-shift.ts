@@ -1,26 +1,24 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { AuthResponseFail } from 'models/response/auth-response'
-import { ILogin } from 'models/user'
-import { useNavigate } from 'react-router-dom'
-import AuthService from 'services/auth-service'
 import { useAlert } from 'components'
+import ShiftService from 'services/shift-service'
+import AuthService from 'services/auth-service'
 import { store } from 'App'
 
-export function useLogin(props: ILogin) {
+export function useCloseShift() {
     const queryClient = useQueryClient()
-    const navigate = useNavigate()
     const { message } = useAlert()
 
     return useMutation({
         mutationFn: () => {
-            return AuthService.login(props.login, props.code, props.shopId)
+            return ShiftService.closeShift()
         },
         onSuccess: (data, variables) => {
-            store.userName = props.login
-            AuthService.setToken(data.data.data.accessToken, data.data.data.refreshToken)
+            AuthService.removeToken()
+            store.userName = ''
+            queryClient.invalidateQueries({ queryKey: ['shifts'] })
             queryClient.invalidateQueries({ queryKey: ['me'] })
-            navigate('/', { replace: true })
         },
         onError: (error: AxiosError<AuthResponseFail>, variables, context) => {
             const mess =

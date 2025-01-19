@@ -4,5 +4,6 @@ export interface IUser {
 }
 export interface ILogin {
     login: string,
-    code: string
+    code: string,
+    shopId: string
 }

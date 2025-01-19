@@ -10,3 +10,8 @@ export interface ShiftResponseFail extends BaseResponse {
 
 }
 
+export interface CloseShiftResponse extends BaseResponse {
+    data: { 
+        shiftId: string
+    }
+}

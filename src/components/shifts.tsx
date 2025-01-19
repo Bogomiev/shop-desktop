@@ -2,6 +2,7 @@ import { ShiftsProps } from 'models/shift'
 import React from 'react'
 import logo from 'assets/images/logo-full.svg'
 import { SpinSceleton } from './ui/spin-skeleton'
+import { Button } from './ui/button'
 
 export const Shifts: React.FC<ShiftsProps> = (props) => {
     return (
@@ -17,7 +18,7 @@ export const Shifts: React.FC<ShiftsProps> = (props) => {
                 </div>
                 <div>{props.address}</div>
                 <div className="font-semibold">Текущая смена</div>
-                
+
                 {props.cashiers.map((cashier) => (
                     <>
                         <div className="font-extrabold text-xl">
@@ -29,13 +30,28 @@ export const Shifts: React.FC<ShiftsProps> = (props) => {
                                 id={cashier.user.id}
                                 checked={cashier.current}
                                 onChange={() =>
-                                    props.cashierChangeHandler(cashier.user.name)
+                                    props.cashierChangeHandler(
+                                        cashier.user.name,
+                                        props.shopId
+                                    )
                                 }
                             />
                         </div>
                         <div className="flex">
                             с {cashier.shiftStartTime} по {cashier.shiftEndTime}
                         </div>
+                        {cashier.current === true ? (
+                            <Button
+                                className="font-medium text-sm"
+                                onClick={() =>
+                                    props.closeShiftHandler()
+                                }
+                            >
+                                Закрыть смену
+                            </Button>
+                        ) : (
+                            <></>
+                        )}
                     </>
                 ))}
             </div>

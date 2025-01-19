@@ -16,7 +16,8 @@ export interface ShiftsData {
 
 export interface ShiftsProps extends ShiftsData{
     isLoading: boolean
-    cashierChangeHandler: (loginn: string) => void
+    cashierChangeHandler: (loginn: string, shopId: string) => void
+    closeShiftHandler: () => void
 }
 
 

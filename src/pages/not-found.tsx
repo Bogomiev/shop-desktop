@@ -1,11 +1,26 @@
-import React from 'react';
+import { Button } from 'components/ui/button'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
+const NotFound: React.FC = () => {
+    const navigate = useNavigate()
+    const back = () => {
+        navigate('/', { replace: true })
+    }
 
- const NotFound: React.FC = () => {
     return (
-        <div>
-          Страница не найдена!
-        </div>
+        <>
+            <div className="font-extrabold">Ой! Страница не найдена!</div>
+            <br />
+            <br />
+            <Button
+                type="button"
+                className="font-medium text-sm"
+                onClick={back}
+            >
+                В личный кабинет
+            </Button>
+        </>
     )
 }
 

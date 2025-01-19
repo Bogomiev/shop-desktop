@@ -7,11 +7,16 @@ export default class AuthService {
         localStorage.setItem('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
     }
+    static removeToken() {
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+    }
     static async login(
         username: string,
-        password: string
+        password: string,
+        shopId: string
     ): Promise<AxiosResponse<AuthResponse>> {
-        const body = { username, password }
+        const body = { username, password, shopId}
         return await $api.post<AuthResponse>('auth/login', body)
     }
 
