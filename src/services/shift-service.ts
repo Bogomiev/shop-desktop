@@ -11,7 +11,7 @@ export default class ShiftService {
     static hiftsDefault: ShiftsData = {
         shopId: '',
         shopName: '<>',
-        address: ' - ',
+        address: '<>',
         cashiers: [{user: {id: '', name: '<Не определен>'}, current: false,shiftStartTime: '', shiftEndTime: ''}]
     }
 

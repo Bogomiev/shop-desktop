@@ -3,6 +3,8 @@ import React from 'react'
 import logo from 'assets/images/logo-full.svg'
 import { SpinSceleton } from './ui/spin-skeleton'
 import { Button } from './ui/button'
+import { UserType } from 'models/user'
+import { NavLink } from 'react-router-dom'
 
 export const Shifts: React.FC<ShiftsProps> = (props) => {
     return (
@@ -34,13 +36,21 @@ export const Shifts: React.FC<ShiftsProps> = (props) => {
                                 onChange={() =>
                                     props.cashierChangeHandler(
                                         cashier.user.name,
-                                        props.shopId
+                                        props.shopId,
+                                        UserType.CASHIER
                                     )
                                 }
                             />
                         </div>
-                        <div className={`flex ${cashier.current ? 'text-primary' : 'text-disableInput'}`}>
-                            с {cashier.shiftStartTime} по {cashier.shiftEndTime}
+                        <div
+                            className={`flex ${cashier.current ? 'text-primary' : 'text-disableInput'}`}
+                        >
+                            с{' '}
+                            {cashier.shiftStartTime
+                                ? cashier.shiftStartTime
+                                : '<>'}{' '}
+                            по{' '}
+                            {cashier.shiftEndTime ? cashier.shiftEndTime : '<>'}
                         </div>
                         {cashier.current === true ? (
                             <Button
@@ -54,6 +64,20 @@ export const Shifts: React.FC<ShiftsProps> = (props) => {
                         )}
                     </>
                 ))}
+
+                <a
+                    href="###"
+                    onClick={() =>
+                        props.cashierChangeHandler(
+                            '',
+                            props.shopId,
+                            UserType.CASHIER
+                        )
+                    }
+                    className="text-primary underline"
+                >
+                    Незапланированный выход
+                </a>
             </div>
         ></SpinSceleton>
     )

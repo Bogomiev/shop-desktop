@@ -17,6 +17,7 @@ export interface AuthResponseFail extends BaseResponse {
 interface MeResponseData {
     user: IUser
     isCashier: boolean
+    isTerritorialManager: boolean
 }
 
 export interface MeResponse extends BaseResponse {

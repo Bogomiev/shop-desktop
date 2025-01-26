@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'main-background': 'white',
         'primary': '#1B1D2D',
         'disable': '#B8BBCA',
         'disableInput': '#B9BAC7',

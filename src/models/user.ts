@@ -7,3 +7,9 @@ export interface ILogin {
     code: string,
     shopId: string
 }
+
+export enum UserType {
+    UNKNOWN = 'UNKNOWN',
+    CASHIER = 'CASHIER',
+    TERRITORIAL_MANAGER = 'TERRITORIAL_MANAGER'
+  }
