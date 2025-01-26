@@ -5,6 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'primary': '#1B1D2D',
+        'disable': '#B8BBCA',
+        'disableInput': '#B9BAC7',
+      },
       animation: {
         alertIn: "alertIn .8s both",
         alertOut: "alertOut .8s both",
