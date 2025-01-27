@@ -16,7 +16,7 @@ export const iconClasses: Record<RequiredAlertProps["type"], string> = {
 };
 
 export const closeButtonClasses =
-  "w-4 h-4 mx-3 items-center justify-center text-gray-200 rounded-md focus:ring-2 focus:ring-gray-300 inline-flex hover:text-white";
+  "w-4 h-4 mx-3 items-center justify-center text-gray-200 rounded-md focus:ring-2 focus:ring-gray-300 inline-flex hover:text-container-color";
 
 export const closeIcon = (
   <svg aria-hidden="true" viewBox="64 64 896 896" fill="currentColor">

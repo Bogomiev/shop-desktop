@@ -8,7 +8,7 @@ export function useShifts() {
     const { data, isError, isLoading } = useQuery({
         queryKey: ['shifts'],
         queryFn: () => ShiftService.shifts(coords.latitude, coords.longitude),
-        retry: false,
+        retry: false
     })
 
     return { data, isError, isLoading }

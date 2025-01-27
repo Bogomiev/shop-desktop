@@ -1,6 +1,10 @@
 export interface IUser {
     id: string
     name: string
+    surname: string,
+	firstname: string,
+	patronymic: string,
+	type: UserType
 }
 export interface ILogin {
     login: string,

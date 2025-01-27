@@ -1,9 +1,11 @@
 import { IGeo } from 'models/geo'
+import { UserType } from 'models/user'
 
 export default class Store {
     private _geo: IGeo = { latitude: 0.0, longitude: 0.0 }
     private _login: string = ''
     private _userName: string = ''
+    private _userType: UserType = UserType.UNKNOWN
     private _shopId: string = ''
 
     get geo() {
@@ -17,6 +19,12 @@ export default class Store {
     }
     set login(value) {
         this._login = value
+    }
+    get userType() {
+        return this._userType
+    }
+    set userType(value) {
+        this._userType = value
     }
     get userName() {
         return this._userName

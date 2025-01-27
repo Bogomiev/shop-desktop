@@ -8,8 +8,9 @@ module.exports = {
       colors: {
         'main-background': 'white',
         'primary': '#1B1D2D',
+        'container-color': 'white',
         'disable': '#B8BBCA',
-        'disableInput': '#B9BAC7',
+        'disableInput': '#B9BAC7', 
       },
       animation: {
         alertIn: "alertIn .8s both",

@@ -4,7 +4,6 @@ import logo from 'assets/images/logo-full.svg'
 import { SpinSceleton } from './ui/spin-skeleton'
 import { Button } from './ui/button'
 import { UserType } from 'models/user'
-import { NavLink } from 'react-router-dom'
 
 export const Shifts: React.FC<ShiftsProps> = (props) => {
     return (

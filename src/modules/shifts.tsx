@@ -2,6 +2,7 @@ import { store } from 'App'
 import { Shifts } from 'components/shifts'
 import { useCloseShift } from 'hooks/use-close-shift'
 import { useShifts } from 'hooks/use-shifts'
+import { UserType } from 'models/user'
 import { useNavigate } from 'react-router-dom'
 import ShiftService from 'services/shift-service'
 
@@ -11,8 +12,9 @@ export const ShiftsContainer: React.FC = () => {
     const navigate = useNavigate()
     const closeShift = useCloseShift()
 
-    const cashierChangeHandler = (cachierName: string, shopId: string) => {
+    const cashierChangeHandler = (cachierName: string, shopId: string, userType: UserType) => {
         if (!store.userName) {
+            store.userType = userType
             store.login = cachierName
             store.shopId = shopId
             navigate('/login', { replace: true })
