@@ -13,12 +13,12 @@ export const ShiftsContainer: React.FC = () => {
     const closeShift = useCloseShift()
 
     const cashierChangeHandler = (cachierName: string, shopId: string, userType: UserType) => {
-        if (!store.userName) {
+        //if (!store.userName) {
             store.userType = userType
             store.login = cachierName
             store.shopId = shopId
             navigate('/login', { replace: true })
-        }
+        //}
     }
     const closeShiftHandler = () => {
         closeShift.mutate()

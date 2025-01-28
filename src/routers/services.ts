@@ -31,27 +31,36 @@ export const unauthorizedZone = (): IService[] => {
 }
 
 export const authorizedZone = (): IService[] => {
-    const routers: IService[] = []
-    routers.push({
-        key: 0,
-        exact: true,
-        path: '/',
-        isMenu: true,
-        component: MainPage,
-        title: 'Главная страница',
-        icon: BiHomeAlt2,
-        icon_mini: BiHomeAlt2,
-    })
-    routers.push({
-        key: 0,
-        exact: true,
-        path: '/test',
-        isMenu: true,
-        component: TestServicePage,
-        title: 'Тестовая страница',
-        icon: FiAlertCircle,
-        icon_mini: FiAlertCircle,
-    })
+    const routers: IService[] = [
+        {
+            key: 0,
+            exact: true,
+            path: '/',
+            isMenu: true,
+            component: MainPage,
+            title: 'Главная страница',
+            icon: BiHomeAlt2,
+            icon_mini: BiHomeAlt2,
+        },
+        {
+            key: 1,
+            exact: true,
+            path: '/login',
+            isMenu: false,
+            component: LoginPage,
+            title: 'Авторизация',
+        },
+        {
+            key: 0,
+            exact: true,
+            path: '/test',
+            isMenu: true,
+            component: TestServicePage,
+            title: 'Тестовая страница',
+            icon: FiAlertCircle,
+            icon_mini: FiAlertCircle,
+        },
+    ]
 
     return routers
 }
