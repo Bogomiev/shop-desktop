@@ -1,19 +1,21 @@
-import { store } from 'App'
 import { ShiftsContainer } from 'modules/shifts'
 import { FC } from 'react'
-
-const MainForm: FC = () => {
-    const position = store.geo
-
+import { GeoPositionStore, GeoService } from 'services/geo-service'
+  
+ const MainPage: FC = () => {
+    const geoStore = new GeoPositionStore()
+    if(geoStore.position.latitude === 0)
+        GeoService.setLocation(geoStore)
     return (
-        <div className="space-y-5">
+        <div className="space-y-3">
             <div>
-                'lat': {position.latitude}
-                'lon': {position.longitude}
+                'lat': {geoStore.position.latitude}
+                {'; '}
+                'lon': {geoStore.position.longitude}
             </div>
             <ShiftsContainer></ShiftsContainer>
         </div>
     )
 }
 
-export default MainForm
+export default MainPage

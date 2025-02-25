@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { AuthResponse } from 'models/response/auth-response'
 
-const API_URL = `http://212.233.124.178:59002/ut_test_5/hs/shopdesktop/v1/`
+//const API_URL = `http://212.233.124.178:59002/ut_test_5/hs/shopdesktop/v1/`
+const API_URL = `https://shop-desktop.ikorniysrv.ru/api/v1/`
 const HEADERS = {
     'Content-Type': 'application/json',
     Authorization: 'Basic U2hvcERlc2t0b3A6MTQxODYzMA==',

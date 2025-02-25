@@ -1,44 +1,44 @@
 import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Spin from 'components/ui/spin'
-import NotFound from 'pages/not-found'
-import { useQuery } from '@tanstack/react-query'
-import AuthService from 'services/auth-service'
-import { authorizedZone, unauthorizedZone } from './services'
+import NotFoundPage from 'pages/not-found'
+import { authServices, unauthServices } from './services'
+import { IService } from 'models/service'
+import { useMe } from 'hooks/use-me'
 
 export const Router: React.FC = () => {
-    const authRoutes = authorizedZone()
-    const unauthRoutes = unauthorizedZone()
-    const { data, isError } = useQuery({
-        queryKey: ['me'],
-        queryFn: AuthService.me,
-        retry: false,
-    })
-
+    const { isError, data } = useMe()
+    
     return (
-        <Suspense fallback={<Spin/>}>
+        <Suspense fallback={<Spin />}>
             <Routes>
                 {!isError && data ? (
                     <>
-                        {authRoutes.map((service) => (
-                            <Route
-                                path={service.path}
-                                key={service.key}
-                                element={<service.component />}
-                            />
-                        ))}
-                        <Route path={'*'} element={<NotFound />} />
+                        {authServices
+                            .values()
+                            .toArray()
+                            .map((service: IService) => (
+                                <Route
+                                    path={service.path}
+                                    key={service.key}
+                                    element={<service.component />}
+                                />
+                            ))}
+                        <Route path={'*'} element={<NotFoundPage />} />
                     </>
                 ) : (
                     <>
-                        {unauthRoutes.map((service) => (
-                            <Route
-                                path={service.path}
-                                key={service.key}
-                                element={<service.component />}
-                            />
-                        ))}
-                        <Route path={'*'} element={<NotFound />} />
+                        {unauthServices
+                            .values()
+                            .toArray()
+                            .map((service: IService) => (
+                                <Route
+                                    path={service.path}
+                                    key={service.key}
+                                    element={<service.component />}
+                                />
+                            ))}
+                        <Route path={'*'} element={<NotFoundPage />} />
                     </>
                 )}
             </Routes>

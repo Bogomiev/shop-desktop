@@ -4,7 +4,6 @@ import { AuthResponseFail } from 'models/response/auth-response'
 import { useAlert } from 'components'
 import ShiftService from 'services/shift-service'
 import AuthService from 'services/auth-service'
-import { store } from 'App'
 
 export function useCloseShift() {
     const queryClient = useQueryClient()
@@ -14,13 +13,12 @@ export function useCloseShift() {
         mutationFn: () => {
             return ShiftService.closeShift()
         },
-        onSuccess: (data, variables) => {
+        onSuccess: (data) => {
             AuthService.removeToken()
-            store.userName = ''
             queryClient.invalidateQueries({ queryKey: ['shifts'] })
             queryClient.invalidateQueries({ queryKey: ['me'] })
         },
-        onError: (error: AxiosError<AuthResponseFail>, variables, context) => {
+        onError: (error: AxiosError<AuthResponseFail>) => {
             const mess =
                 error.response?.data?.messages
                     ? error.response.data.messages[0]
