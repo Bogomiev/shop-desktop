@@ -1,4 +1,4 @@
-import { IUser } from './user'
+import { IUser, UserType } from './user'
 
 interface ShiftUser {
     user: IUser
@@ -16,8 +16,9 @@ export interface ShiftsData {
 
 export interface ShiftsProps extends ShiftsData{
     isLoading: boolean
-    cashierChangeHandler: (loginn: string, shopId: string) => void
+    cashierChangeHandler: (login: string, shopId: string, userType: UserType) => void
     closeShiftHandler: () => void
+    openAccountHandler: (shopId: string) => void
 }
 
 

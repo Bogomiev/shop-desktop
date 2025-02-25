@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     const classes =
-        'text-white bg-primary hover:bg-gray-800 disabled:bg-disable focus:ring-4 focus:outline-none focus:ring-black-300 rounded-lg w-full px-5 py-2.5 text-center ' +
+        'text-container-color bg-primary hover:bg-gray-800 disabled:bg-disable focus:ring-4 focus:outline-none focus:ring-black-300 rounded-lg w-full px-5 py-2.5 text-center ' +
         (className ? className : '')
 
     return (

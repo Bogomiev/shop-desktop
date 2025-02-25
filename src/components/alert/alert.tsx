@@ -37,7 +37,7 @@ export const Alert = (props: AlertProps) => {
         return () => {
             clearTimeout(dismissRef.current)
         }
-    }, [])
+    })
 
     // progressBar
     const progressBarRef = useRef<ReturnType<typeof setInterval>>()
@@ -59,7 +59,7 @@ export const Alert = (props: AlertProps) => {
         return () => {
             clearInterval(progressBarRef.current)
         }
-    }, [])
+    })
     return (
         <div
             style={{ ['--elm-translate' as any]: animationVariables[position] }}

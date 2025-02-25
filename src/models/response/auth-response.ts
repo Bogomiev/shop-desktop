@@ -14,9 +14,14 @@ export interface AuthResponseFail extends BaseResponse {
 
 }
 
-interface MeResponseData {
+export interface MeResponseData {
     user: IUser
     isCashier: boolean
+    isTerritorialManager: boolean
+    shift?: {
+        id: string
+        shopId: string
+    }
 }
 
 export interface MeResponse extends BaseResponse {
