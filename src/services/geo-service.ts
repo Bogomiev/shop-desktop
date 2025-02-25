@@ -1,23 +1,42 @@
-import { store } from 'App'
-import { IGeo, IGeoPositionStore } from 'models/geo'
+import { IGeo } from 'models/geo'
+import { createStore } from 'zustand'
 
 export class GeoService {
     static error(err: { code: any; message: any }) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+        console.warn(`ERROR(${err.code}): ${err.message}`)
     }
-    
-    static setLocation(store: IGeoPositionStore) {
+
+    static UpdatePosition() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(store.setPosition, GeoService.error)
+            navigator.geolocation.getCurrentPosition(
+                geoStore.getState().setGeo,
+                GeoService.error
+            )
         }
-    }  
+    }
+
+    static GetPosition() {
+        return geoStore.getState().geo
+    }
+    static PositionIsFound() {
+        return geoStore.getState().geo.latitude > 0
+    }
 }
 
-export class GeoPositionStore implements IGeoPositionStore {
-    setPosition(position: { coords: IGeo }) {
-        store.geo = position.coords
-    } 
-    get position() {
-        return store.geo
-    }
+interface geoState {
+    geo: IGeo
+
+    setGeo: (position: { coords: IGeo }) => void
 }
+
+const geoStore = createStore<geoState>()((set, get) => ({
+    geo: { latitude: 0.0, longitude: 0.0 },
+
+    setGeo: (position: { coords: IGeo }) =>
+        set({
+            geo: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            },
+        }),
+}))

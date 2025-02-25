@@ -1,5 +1,4 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { store } from 'App'
 import { Button } from 'components/ui/button'
 import { useLogin } from 'hooks/use-login'
 import { useUsers } from 'hooks/use-users'
@@ -7,23 +6,25 @@ import { IUser } from 'models/user'
 import { FC, useEffect, useState } from 'react'
 import ReactCodeInput from 'react-code-input'
 import { useNavigate } from 'react-router-dom'
+import { Store } from 'store/store'
 
 const LoginPage: FC = () => {
+    const store = Store((state) => state);
     const navigate = useNavigate()
     const queryClient = useQueryClient()
     const [isLogin] = useState<boolean>(store.login === '')
     const [login, setLogin] = useState<string>(store.login)
     const [code, setCode] = useState<string>('')
     const loginHandler = useLogin({ login, code, shopId: store.shopId })
-
+    
     const back = () => {
         navigate('/', { replace: true })
     }
+    
     const users = useUsers(store.userType, login)
     const updateUsersDataHandler = (userlogin: string) => {
         setLogin(userlogin)
-        store.login = userlogin
-
+        store.setLogin(userlogin)
     }
     useEffect(() => {
         queryClient.invalidateQueries({ queryKey: ['users'] })

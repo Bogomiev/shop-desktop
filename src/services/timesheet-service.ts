@@ -20,7 +20,7 @@ export default class TimesheetService {
         const timesheetDays = calendar.map((day) =>
             TimesheetService.timesheetDay(day, res.data.data)
         )
-        console.log(JSON.stringify(timesheetDays))
+
         return timesheetDays
     }
 

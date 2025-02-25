@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { GeoPositionStore, GeoService } from 'services/geo-service'
+import { GeoService } from 'services/geo-service'
 import ShiftService from 'services/shift-service'
 
 function sleep(ms: number) {
@@ -7,22 +7,18 @@ function sleep(ms: number) {
 }
 
 export function useShifts() {
-    const geoStore = new GeoPositionStore()
-    if(geoStore.position.latitude === 0)
-        GeoService.setLocation(geoStore)
+    if (!GeoService.PositionIsFound()) GeoService.UpdatePosition()
 
     const { data, isError, isLoading } = useQuery({
         queryKey: ['shifts'],
         queryFn: async () => {
-            for (let i = 0; i < 10; i++) {
-                if (geoStore.position.latitude === 0) await sleep(250)
-                else break
+            let i = 0
+            while (i < 10 && !GeoService.PositionIsFound()) {
+                i++
+                await sleep(250)
             }
-
-            return ShiftService.shifts(
-                geoStore.position.latitude,
-                geoStore.position.longitude
-            )
+            const pos = GeoService.GetPosition()
+            return ShiftService.shifts(pos.latitude, pos.longitude)
         },
         retry: true,
         select: (data) => data.data.data,
