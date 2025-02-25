@@ -1,19 +1,26 @@
 import { ShiftsContainer } from 'modules/shifts'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { GeoService } from 'services/geo-service'
-  
- const MainPage: FC = () => {
-    const pos = GeoService.GetPosition()
 
-    if(pos.latitude === 0)
-        GeoService.UpdatePosition()
+const MainPage: FC = () => {
+    
+
+    // const geo = GeoService.GetPosition()
+    // const [pos, setPos] = useState({...geo})
+
+    // if (pos.latitude === 0) GeoService.UpdatePosition()
+
+    // useEffect(() => {
+    //     setPos(geo)
+    // }, [geo, geo.latitude])
+
     return (
         <div className="space-y-3">
-            <div>
-                'lat': {pos.latitude}
+            {/* <div>
+                'lat': {geo.latitude}
                 {'; '}
-                'lon': {pos.longitude}
-            </div>
+                'lon': {geo.longitude}
+            </div> */}
             <ShiftsContainer></ShiftsContainer>
         </div>
     )

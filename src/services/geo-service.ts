@@ -1,5 +1,5 @@
 import { IGeo } from 'models/geo'
-import { createStore } from 'zustand'
+import { create, createStore } from 'zustand'
 
 export class GeoService {
     static error(err: { code: any; message: any }) {
@@ -29,7 +29,7 @@ interface geoState {
     setGeo: (position: { coords: IGeo }) => void
 }
 
-const geoStore = createStore<geoState>()((set, get) => ({
+const geoStore = create<geoState>()((set, get) => ({
     geo: { latitude: 0.0, longitude: 0.0 },
 
     setGeo: (position: { coords: IGeo }) =>

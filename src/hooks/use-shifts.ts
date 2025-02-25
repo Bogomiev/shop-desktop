@@ -13,7 +13,7 @@ export function useShifts() {
         queryKey: ['shifts'],
         queryFn: async () => {
             let i = 0
-            while (i < 10 && !GeoService.PositionIsFound()) {
+            while (i < 30 && !GeoService.PositionIsFound()) {
                 i++
                 await sleep(250)
             }
