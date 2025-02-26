@@ -1,26 +1,29 @@
-import { store } from 'App'
 import { Shifts } from 'components/shifts'
 import { useCloseShift } from 'hooks/use-close-shift'
 import { useShifts } from 'hooks/use-shifts'
 import { UserType } from 'models/user'
 import { useNavigate } from 'react-router-dom'
 import { authServices, Services, unauthServices } from 'routers/services'
+import { GeoService } from 'services/geo-service'
 import ShiftService from 'services/shift-service'
+import { Store } from 'store/store'
 
 export const ShiftsContainer: React.FC = () => {
+    const geo = GeoService.Store((state) => state.geo)
     const shiftsDefault = ShiftService.hiftsDefault
     const { data, isError, isLoading } = useShifts()
     const navigate = useNavigate()
     const closeShift = useCloseShift()
+    const store = Store((state) => state)
 
     const cashierChangeHandler = (
         cachierName: string,
         shopId: string,
         userType: UserType
     ) => {
-        store.userType = userType
-        store.login = cachierName
-        store.shopId = shopId
+        store.setLogin(cachierName)
+        store.setUserType(userType)
+        store.setShopId(shopId)
         const loginPath = unauthServices.get(Services.Login)?.path
         if (loginPath) navigate(loginPath, { replace: true })
     }
@@ -37,14 +40,25 @@ export const ShiftsContainer: React.FC = () => {
     }
 
     return (
-        <Shifts
-            {...{
-                isLoading,
-                cashierChangeHandler,
-                closeShiftHandler,
-                openAccountHandler: openAccountHandler,
-                ...(data && !isError ? data : shiftsDefault),
-            }}
-        ></Shifts>
+        <>
+            {data && data.shopId ? (
+                <></>
+            ) : (
+                <div>
+                    'lat': {geo.latitude}
+                    {'; '}
+                    'lon': {geo.longitude}
+                </div>
+            )}
+            <Shifts
+                {...{
+                    isLoading,
+                    cashierChangeHandler,
+                    closeShiftHandler,
+                    openAccountHandler: openAccountHandler,
+                    ...(data && !isError ? data : shiftsDefault),
+                }}
+            ></Shifts>
+        </>
     )
 }

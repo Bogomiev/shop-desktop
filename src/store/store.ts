@@ -1,7 +1,39 @@
 import { IGeo } from 'models/geo'
 import { UserType } from 'models/user'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-export default class Store {
+interface storeState {
+    login: string
+    geo: IGeo
+    userType: UserType
+    shopId: string
+
+    setLogin: (newLogin: string) => void
+    setGeo: (newGeo: IGeo) => void
+    setUserType: (newUserType: UserType) => void
+    setShopId: (newShopId: string) => void
+}
+
+export const Store = create<storeState>()(
+    persist(
+        (set) => ({
+            login: '',
+            geo: { latitude: 0.0, longitude: 0.0 },
+            userType: UserType.UNKNOWN,
+            shopId: '',
+
+            setLogin: (newLogin: string) => set({ login: newLogin }),
+            setGeo: (newGeo: IGeo) => set({ geo: newGeo }),
+            setUserType: (newUserType: UserType) =>
+                set({ userType: newUserType }),
+            setShopId: (newShopId: string) => set({ shopId: newShopId }),
+        }),
+        { name: 'shop-storage' }
+    )
+)
+
+export class Store1 {
     private _geo: IGeo = { latitude: 0.0, longitude: 0.0 }
     private _login: string = ''
     private _userType: UserType = UserType.UNKNOWN

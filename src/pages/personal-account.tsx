@@ -11,7 +11,7 @@ const PersonalAccountPage: React.FC = () => {
     return (
         <>
             <div>
-                <div className="font-extrabold text-xl text-primary">
+                <div className="font-extrabold text-xl text-primary flex justify-center">
                     {meData?.user.name}
                 </div>
                 <TimesheetContainer
