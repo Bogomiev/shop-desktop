@@ -1,25 +1,30 @@
 import { IGeo } from 'models/geo'
-import { create, createStore } from 'zustand'
+import { create, StoreApi, UseBoundStore } from 'zustand'
 
 export class GeoService {
+    static get Store(): UseBoundStore<StoreApi<geoState>> {
+        return useGeoStore
+    }
+
     static error(err: { code: any; message: any }) {
         console.warn(`ERROR(${err.code}): ${err.message}`)
     }
 
     static UpdatePosition() {
+        const setGeo = useGeoStore.getState().setGeo
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                geoStore.getState().setGeo,
+                setGeo,
                 GeoService.error
             )
         }
     }
 
     static GetPosition() {
-        return geoStore.getState().geo
+        return useGeoStore.getState().geo
     }
     static PositionIsFound() {
-        return geoStore.getState().geo.latitude > 0
+        return useGeoStore.getState().geo.latitude > 0
     }
 }
 
@@ -29,14 +34,14 @@ interface geoState {
     setGeo: (position: { coords: IGeo }) => void
 }
 
-const geoStore = create<geoState>()((set, get) => ({
+const useGeoStore = create<geoState>()((set, get) => ({
     geo: { latitude: 0.0, longitude: 0.0 },
 
-    setGeo: (position: { coords: IGeo }) =>
+    setGeo: (position: { coords: IGeo }) => {
         set({
             geo: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             },
-        }),
+        })},
 }))

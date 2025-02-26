@@ -7,13 +7,12 @@ function sleep(ms: number) {
 }
 
 export function useShifts() {
-    if (!GeoService.PositionIsFound()) GeoService.UpdatePosition()
-
     const { data, isError, isLoading } = useQuery({
         queryKey: ['shifts'],
         queryFn: async () => {
             let i = 0
             while (i < 30 && !GeoService.PositionIsFound()) {
+                if(i === 0) GeoService.UpdatePosition()
                 i++
                 await sleep(250)
             }
